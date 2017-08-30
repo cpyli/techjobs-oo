@@ -53,21 +53,24 @@ public class JobController {
             return "new-job";
         }
 
-        Job newJob = null;
-
+        String aName = jobForm.getName();
         Employer aEmployer = jobData.getEmployers().findById(jobForm.getEmployerId());
         Location aLocation = jobData.getLocations().findById(jobForm.getLocationId());
-        CoreCompetency aCoreCompetency = jobData.getCoreCompetencies().findById(jobForm.getCoreCompetencyId());
         PositionType aPositionType = jobData.getPositionTypes().findById(jobForm.getPositionTypeId());
+        CoreCompetency aCoreCompetency = jobData.getCoreCompetencies().findById(jobForm.getCoreCompetencyId());
 
-        newJob.setEmployer(aEmployer);
-        newJob.setLocation(aLocation);
-        newJob.setCoreCompetency(aCoreCompetency);
-        newJob.setPositionType(aPositionType);
+
+        Job newJob = new Job(aName, aEmployer, aLocation, aPositionType, aCoreCompetency);
+
+//        newJob.setName(aName);
+//        newJob.setEmployer(aEmployer);
+//        newJob.setLocation(aLocation);
+//        newJob.setCoreCompetency(aCoreCompetency);
+//        newJob.setPositionType(aPositionType);
 
         jobData.add(newJob);
 
-        return "redirect:/job?id=" + newJob.getId();
+        return "redirect:?id=" + newJob.getId();
 
     }
 }
